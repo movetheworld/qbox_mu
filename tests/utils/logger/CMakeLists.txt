@@ -1,0 +1,11 @@
+macro(gs_test test)
+    add_executable(${test} ${test}.cc)
+    target_link_libraries(${test} ${TARGET_LIBS})
+    add_test(NAME ${test}_gslog COMMAND ${test})
+    gs_set_test_runtime_env(${test}_gslog ENV "GS_LOG=1")
+    set_tests_properties(${test}_gslog PROPERTIES TIMEOUT 30)
+    add_test(NAME ${test} COMMAND ${test})
+    set_tests_properties(${test} PROPERTIES TIMEOUT 30)
+endmacro()
+
+gs_test(logger_test)
